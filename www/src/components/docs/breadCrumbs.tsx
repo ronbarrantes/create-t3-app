@@ -39,13 +39,15 @@ export default function BreadCrumbs() {
     return SIDEBAR_HEADER_MAP[lang][header];
   };
 
-  const breadcrumbs = window.location.pathname
+  const pathname = window.location.pathname.replace(/\/$/, "");
+
+  const breadcrumbs = pathname
     .split("/")
-    .slice(window.location.pathname.split("/").length > 3 ? -2 : -1)
+    .slice(pathname.split("/").length > 3 ? -2 : -1)
     .map((crumb) => {
-      const path = window.location.pathname
+      const path = pathname
         .split("/")
-        .slice(0, window.location.pathname.split("/").indexOf(crumb) + 1)
+        .slice(0, pathname.split("/").indexOf(crumb) + 1)
         .join("/");
       return {
         href: `${window.location.protocol}//${window.location.host}${path}`,
